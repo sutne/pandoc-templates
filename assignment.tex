@@ -1,53 +1,79 @@
-\usepackage{packages}
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+\PassOptionsToPackage{space}{xeCJK}
+\documentclass[]{$documentclass$}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage[a4paper, total={150mm, 245mm, footskip=14mm}]{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{calc}
+\usepackage{etoolbox}
+\usepackage[normalem]{ulem}
+\usepackage{graphicx}
+\usepackage{calc}
+\usepackage[bidi=default]{babel}
+\usepackage{cancel}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{hyperref}
+% Extra
+\usepackage{lastpage} % use lastpage number in footer
+\usepackage{tocloft} % customize toc
+\usepackage{framed} % drawing bars next to paragraphs
+\usepackage{enumitem} % editing list
+\usepackage{tikz} % Drawing Graphs
+\usetikzlibrary{positioning, matrix, arrows.meta, bending}
 
 
 
-% Document Setup ---------------------------------------------------------------
-% is toggled to show/don't show with '--toc' in pandoc command
-% > note that i use the 'toc' command option, because you can't create your 
-% own command line toggle. confusing, but it works.
-% used with: `\ifbool{is_solution}{True}{False}`
-\newbool{is_solution}
-$if(toc)$\booltrue{is_solution}$else$\boolfalse{is_solution}$endif$
-% Adjust paragraphs
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
-% disable monospaced font for URLs
-\urlstyle{same} 
-% prevent overfull lines
-\setlength{\emergencystretch}{3em} 
+% Pandoc Setup ---------------------------------------------------------------
+$for(header-includes)$$header-includes$$endfor$ % required for pandoc-crossref to pass its includes
 % pandoc lists
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-% Header and footer style
-\renewcommand{\headrulewidth}{0.1px}
-\renewcommand{\footrulewidth}{0.1px}
-\pagestyle{fancy}
-\fancyhf{} % clear default header/footer
-% Figure and code (Listing) default placement
-\AtBeginDocument{\floatplacement{figure}{H}}
-\AtBeginDocument{\floatplacement{codelisting}{H}}
-\AtBeginDocument{\floatplacement{table}{H}}
-% default link colors
-\hypersetup{
-    colorlinks=true,
-    linkcolor={Black},
-    filecolor={Blue},
-    citecolor={Blue},
-    urlcolor={Blue},
-}
-
 % inline code
 \newcommand{\passthrough}[1]{#1}
 \lstset{defaultdialect=[5.3]Lua}
 \lstset{defaultdialect=[x86masm]Assembler}
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% Document Setup ---------------------------------------------------------------
+% Adjust paragraphs to be newline without indent
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+% disable monospaced font for URLs
+\urlstyle{same} 
+% prevent overfull lines
+\setlength{\emergencystretch}{3em} 
+% Figure and code (Listing) default placement
+\AtBeginDocument{\floatplacement{figure}{H}}
+\AtBeginDocument{\floatplacement{table}{H}}
+\AtBeginDocument{\floatplacement{codelisting}{H}}
+\AtBeginDocument{\floatplacement{lstlisting}{H}}
+% Header and footer setup
+\renewcommand{\headrulewidth}{0.1px}
+\renewcommand{\footrulewidth}{0.1px}
+\pagestyle{fancy}
+\fancyhf{} % clear default header/footer
 % Code Highlighting
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codeorange}{RGB}{150, 90, 10}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{codebackcolor}{rgb}{0.95,0.95,0.92}
-\definecolor{solutioncodebackcolor}{RGB}{232, 244, 252}
 \lstdefinestyle{mystyle}{
     basicstyle=\ttfamily,
     backgroundcolor=\color{codebackcolor},
@@ -55,7 +81,7 @@ $if(toc)$\booltrue{is_solution}$else$\boolfalse{is_solution}$endif$
     keywordstyle=\color{codeorange},
     stringstyle=\color{codegreen},
     numberstyle=\ttfamily\small\color{codegray},
-    numbers=left, % line numbers
+    % numbers=left, % line numbers
     breakatwhitespace=false,
     breaklines=true,
     keepspaces=true,
@@ -65,181 +91,91 @@ $if(toc)$\booltrue{is_solution}$else$\boolfalse{is_solution}$endif$
     tabsize=2,
 }
 \lstset{style=mystyle}
+% default link colors
+\hypersetup{
+    colorlinks=true,
+    linkcolor={Black},
+    filecolor={Blue},
+    citecolor={Blue},
+    urlcolor={Blue},
+}
+
+\renewenvironment*{quote}
+{
+    \color{Gray}
+    \begin{leftbar}
+}{
+    \end{leftbar}
+}
 
 % Setup to automatically number tasks based on markdown header level
 \setlength{\cftsecnumwidth}{13mm}
-\setlength{\cftsubsecnumwidth}{13mm}
-\setlength{\cftsubsubsecnumwidth}{4mm}
-\setlength{\cftsubsubsecnumwidth}{4mm}
-\renewcommand\thesection{Part \arabic{section}}       % #    = Part 1, Part 2
-\renewcommand\thesubsection{Task \arabic{subsection}} % ##   = Task 1, Task 2
-\renewcommand\thesubsubsection{\alph{subsubsection})} % ###  = a), b), c)
-\renewcommand\theparagraph{\roman{paragraph}.}        % #### = i., ii., iii.
-\makeatletter
-\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
-    {-3.25ex \@plus -1ex \@minus -0.2ex}%
-    {0.01pt}%
-    {\normalfont\normalsize}
-}
-\makeatother
+\setlength{\cftsubsecnumwidth}{6mm}
+\setlength{\cftsubsubsecnumwidth}{6mm}
+\renewcommand\thesection{Task \arabic{section}}         % #    = Task 1, Task 2 
+\renewcommand\thesubsection{(\alph{subsection})}        % ##   = (a), (b), (c)
+\renewcommand\thesubsubsection{\roman{subsubsection}.}  % ###  = i., ii., iii.
+\renewcommand\theparagraph{\Alph{paragraph}.}           % #### = A., B., C.
 % Graph drawing styles
 \tikzset{
-    % nodes
-    node/.style={
-        circle,
-        draw,
-        thick,
-        inner sep=0pt,
-        align=center,
-        minimum size=10mm,
-    },
-    % Lines
-    edge/.style={
-        -{Stealth[length=2mm, width=3mm]}, 
-        thick,
-    },
-    line/.style={ 
-        -, 
-        thick,
-    },
-    resedge/.style={ % residual edge for backwards flow
-        -{Stealth[length=2mm, width=3mm]}, 
-        thick, 
-        densely dashed, 
-        bend right,
-    }, 
-    cut/.style={
-        -{Stealth[length=1mm, width=2mm]}, 
-        thin, 
-        dotted,
-    },
-    % Line Labels
-    weight/.style={
-        midway, 
-        circle, 
-        inner sep=1pt, 
-        font=\normalsize,
-        fill=white,
-    },
-    flow/.style={
-        midway, 
-        draw, 
-        thin, 
-        inner sep=2pt, 
-        font=\normalsize,
-        fill=white,
-    },
-    % Array Styles
-    array/.style={
-        matrix of nodes, 
-        nodes={draw, scale=1, minimum size=7mm, font=\Large,}, 
-        column sep=-\pgflinewidth,
-    },
+    node/.style={circle,draw,thick,inner sep=0pt,align=center,minimum size=10mm},
+    edge/.style={-{Stealth[length=2mm, width=3mm]},thick},
+    line/.style={-,thick},
+    cut/.style={-{Stealth[length=1mm, width=2mm]},thin,dotted},
+    weight/.style={midway,circle,inner sep=1pt,font=\normalsize,fill=white,},
+    flow/.style={midway, draw, thin, inner sep=2pt, font=\normalsize,fill=white},
+    array/.style={matrix of nodes,nodes={draw, scale=1, minimum size=7mm, font=\Large,},column sep=-\pgflinewidth},
 }
-% New environment to contain solution and tasks in the same file.
-\ifbool{is_solution}{
-    \newenvironment{solution}{
-        \color{blue}
-        \hypersetup{
-            colorlinks=true,
-            linkcolor={Maroon},
-            filecolor={Maroon},
-            citecolor={Maroon},
-            urlcolor= {Maroon},
-        }
-        \lstset{backgroundcolor=\color{solutioncodebackcolor}}
-        \textbf{Solution:}\\
-    }{}
-}{
-    \excludecomment{solution} % hides content of environment
-}
-\newenvironment{tip}
-{
-    % Performed in '\begin{tip}'
-    \color{Gray}
-    \hfill
-    % \begin{minipage}{\textwidth-1cm}
-    \begin{leftbar} 
-    \textbf{Tip:}\\
-}{ 
-    % performed in '\end{tip}'
-    \end{leftbar} 
-    % \end{minipage}
-}
-% Curriculum styling on the front page
-\newcommand{\curriculum}[1]
-{
-    \ifbool{is_solution}{}
-    {
-        $if(curriculum)$
-        \begin{center}
-        \textbf{\large Curriculum:}\\
-        #1
-        \end{center}
-        $endif$
-    }
-}
-\newcommand{\logo}[1]
-{
-    \begin{center}
-    \includegraphics[width=0.2\textwidth]{#1}
-    \end{center}
-    \vspace{-4mm}
-}
+
 
 
 % Options ----------------------------------------------------------------------
-\setcounter{tocdepth}{2}
-\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{$if(tocdepth)$$tocdepth$$else$2$endif$}
+\setcounter{secnumdepth}{$if(secnumdepth)$$secnumdepth$$else$4$endif$}
+
 \renewcommand*\contentsname{Contents}
-\renewcommand\star{\mbox{\(\bigstar\)}\mbox{\footnotesize\normalfont\textit{ Optional}}}
+\renewcommand*\figurename{Figure}
+\renewcommand*\tablename{Table}
+\renewcommand*\lstlistingname{Listing}
+\renewcommand*\figureautorefname{Figure}
+\renewcommand*\tableautorefname{Table}
+% \renewcommand*\lstlistingautorefname{Listing}
+
 
 % Layout and Content -----------------------------------------------------------
-
-% '$variables$' are set in the YAML in each markdown file
-\newcommand\subtitle{\ifbool{is_solution}{Solution - }{}Assignment $assignment$}
+% Front Page
 \title{
-    \logo{./assets/logo.png}
-    {\normalsize $subjectcode$ $subjectname$}\\
+    {\normalsize $subjectcode$ $subjectname$\\
     \vspace{10mm}
-    \subtitle\\
+    Assignment $assignment$}\\
     \textbf{$title$}
 }
-\author{$for(author)$$author$$sep$ \and $endfor$}
-\date{\ifbool{is_solution}{}{Deadline: $deadline$}}
+\author{Sivert Utne}
+\date{\today}
+
+% Header and Footer
 \lhead{$subjectcode$\\$subjectname$}
-\rhead{\subtitle\\$title$}
+\rhead{Assignment $assignment$\\$title$}
+\chead{Sivert Utne}
 \fancyfoot[c]{Page \thepage\ of \pageref{LastPage}}
 
-\newcommand\instructions{\ifbool{is_solution}{}
-{
-\textbf{\large Instructions:}
 
-$if(instructions)$$instructions$\\\vspace{10mm}$endif$
 
-Please see the \href{https://alginf.idi.ntnu.no/assignments}{assignment and delivery instructions} before starting and submitting the assignment.
-
-Tasks marked with '\(\star\)' are usually more difficult than the other tasks. They are \textbf{optional} and \textbf{not} needed to get the assignment approved. These tasks are meant as an extra challenge for those interested.
-}}
 
 
 \begin{document}
     % Front Page
     \maketitle
-    \mbox{}
-    \curriculum{$curriculum$}
 
     \vfill
-    \instructions
-    \vspace{10mm}
-
-    \tableofcontents % toc
+    \tableofcontents 
     \thispagestyle{empty}
 
     % Main Content
+    $for(include-before)$$include-before$$endfor$
     \clearpage
     \renewcommand{\arraystretch}{1.3}
     \setcounter{page}{1}
     $body$ % Markdown file contents
-
+    $for(include-after)$$include-after$$endfor$
 \end{document}
