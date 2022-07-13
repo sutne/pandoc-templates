@@ -1,0 +1,47 @@
+\documentclass[]{$documentclass$}
+% Get styling from master (essentially copy pastes all its content into here)
+\input{~/GitHub/pandoc-templates/master.sty}
+% Insert all other header-includes (for instance from pandoc-crossref)
+$for(header-includes)$$header-includes$$endfor$ 
+
+\setcounter{tocdepth}{$if(toc-depth)$$toc-depth$$else$3$endif$}
+\setcounter{secnumdepth}{$if(sec-num-depth)$$sec-num-depth$$else$4$endif$}
+
+
+\newcommand\supertitle{$if(supertitle)$$supertitle$$else$Report$endif$}
+\title{
+    {\large \supertitle\\\vspace{-1mm}}
+    $if(title)$\textbf{$title$}\\\vspace{-1mm}$endif$
+    {\color{Gray}\normalsize $if(subjectcode)$$subjectcode$$endif$ $if(subjectname)$$subjectname$$endif$}
+}
+\author{
+$if(author)$
+    $for(author)$$author$$sep$ \\ $endfor$
+$else$
+    Sivert Utne
+$endif$
+}
+\date{$if(date)$$date$$else$\today$endif$}
+
+% Header and Footer
+\lhead{\color{Gray}$if(subjectcode)$$subjectcode$\\$endif$$if(subjectname)$$subjectname$$endif$}
+\rhead{\color{Gray}\supertitle\\$if(title)$$title$$endif$}
+\chead{$if(author)$$else$Sivert Utne$endif$}
+\fancyfoot[c]{Page \thepage\ of \pageref{LastPage}}
+
+
+\begin{document}
+    \maketitle
+
+    \vfill
+    \tableofcontents 
+    \thispagestyle{empty}
+
+    % Main Content
+    $for(include-before)$$include-before$$endfor$
+    \clearpage
+    \renewcommand{\arraystretch}{1.3}
+    \setcounter{page}{1}
+    $body$ % Markdown file contents
+    $for(include-after)$$include-after$$endfor$
+\end{document}
