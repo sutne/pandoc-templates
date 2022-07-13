@@ -14,16 +14,44 @@ which i would recommend doing automatically by placing this in a `Makefile` or s
 
 An alternative would be placing the template in a *pandoc data dir*.
 
-### Assignment
+Because i hate having duplicate code/styling, i have placed as much as possible in the `master.sty` file, all the other templates "inherit" the styles defined here to keep things consistant, if the template need to, these styles/options can just be overwritten.
 
-All optional yaml arguments, and their expected type:
+### All optional yaml arguments:
 
-* `subjectcode`: String | Number
-* `subjectname`: String
-* `author`: String | List of Strings
-* `assignment`: Number
-* `title`: String
-* `date`: String
+Arguments without a default value will not appear in the document unless specified. To give a list as argument the following syntax is used:
+
+```yaml
+key:
+- Value 1
+- Value 2
+- Value 3
+```
+
+#### Assignment
+
+| key             | type(s)               | default value |
+|:----------------|:----------------------|:-------------:|
+| `toc-depth`     | Number                |       2       |
+| `sec-num-depth` | Number                |       4       |
+| `date`          | String                |   `\today`    |
+| `author`        | String / List[String] |  Sivert Utne  |
+| `subjectcode`   | String / Number       |               |
+| `subjectname`   | String                |               |
+| `assignment`    | Number                |               |
+| `title`         | String                |               |
+
+#### Report
+
+| key             | type(s)               | default value |
+|:----------------|:----------------------|:-------------:|
+| `toc-depth`     | Number                |       3       |
+| `sec-num-depth` | Number                |       4       |
+| `date`          | String                |   `\today`    |
+| `author`        | String / List[String] |  Sivert Utne  |
+| `subjectcode`   | String / Number       |               |
+| `subjectname`   | String                |               |
+| `supertitle`    | String                |    Report     |
+| `title`         | String                |               |
 
 ## pandoc-crossref
 This makes it super easy to refer to figure, tables etc. from anywhere else in the document.
