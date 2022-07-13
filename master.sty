@@ -1,0 +1,118 @@
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+\PassOptionsToPackage{space}{xeCJK}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage[a4paper, total={150mm, 245mm, footskip=14mm}]{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{calc}
+\usepackage{etoolbox}
+\usepackage[normalem]{ulem}
+\usepackage{graphicx}
+\usepackage{calc}
+\usepackage[bidi=default]{babel}
+\usepackage{cancel}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{hyperref}
+% Extra
+\usepackage{lastpage} % use lastpage number in footer
+\usepackage{tocloft} % customize toc
+\usepackage{framed} % drawing bars next to paragraphs
+\usepackage{enumitem} % editing list
+\usepackage{tikz} % Drawing Graphs
+\usetikzlibrary{positioning, matrix, arrows.meta, bending}
+
+
+% pandoc lists
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+% inline code
+\newcommand{\passthrough}[1]{#1}
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% Document Setup ---------------------------------------------------------------
+% Adjust paragraphs to be newline without indent
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+% disable monospaced font for URLs
+\urlstyle{same} 
+% prevent overfull lines
+\setlength{\emergencystretch}{3em} 
+% Figure and code (Listing) default placement
+\AtBeginDocument{\floatplacement{figure}{H}}
+\AtBeginDocument{\floatplacement{table}{H}}
+\AtBeginDocument{\floatplacement{codelisting}{H}}
+\AtBeginDocument{\floatplacement{lstlisting}{H}}
+% Header and footer setup
+\renewcommand{\headrulewidth}{0.1px}
+\renewcommand{\footrulewidth}{0.1px}
+\pagestyle{fancy}
+\fancyhf{} % clear default header/footer
+% Code Highlighting
+\definecolor{codegreen}{RGB}{0, 130, 0}
+\definecolor{codebrown}{RGB}{92, 59, 1}
+\definecolor{codeorange}{RGB}{219, 118, 9}
+\definecolor{codegray}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codebackcolortan}{rgb}{0.95,0.95,0.92}
+\definecolor{codebackcolorgray}{rgb}{0.90,0.90,0.90}
+\lstset{basicstyle=\ttfamily,
+    backgroundcolor=\color{codebackcolortan},
+    commentstyle=\color{codegray},
+    keywordstyle=\color{codebrown},
+    stringstyle=\color{codegreen},
+    numberstyle=\ttfamily\small\color{codegray},
+    numbers=none, % line numbers
+    breakatwhitespace=false,
+    breaklines=true,
+    keepspaces=true,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    aboveskip=0pt,
+    belowskip=0pt,
+}
+\lstdefinelanguage{sh}{
+    backgroundcolor=\color{codebackcolorgray},
+    aboveskip=1em,
+    belowskip=1em,
+}
+% default link colors
+\hypersetup{
+    colorlinks=true,
+    linkcolor={Black},
+    filecolor={Blue},
+    citecolor={Blue},
+    urlcolor={Blue},
+}
+% make quote match its markdown equivalent
+\renewenvironment*{quote}{\color{Gray}\begin{leftbar}}{\end{leftbar}}
+
+% Graph drawing styles
+\tikzset{
+    node/.style={circle,draw,thick,inner sep=0pt,align=center,minimum size=10mm},
+    edge/.style={-{Stealth[length=2mm, width=3mm]},thick},
+    line/.style={-,thick},
+    cut/.style={-{Stealth[length=1mm, width=2mm]},thin,dotted},
+    weight/.style={midway,circle,inner sep=1pt,font=\normalsize,fill=white,},
+    flow/.style={midway, draw, thin, inner sep=2pt, font=\normalsize,fill=white},
+    array/.style={matrix of nodes,nodes={draw, scale=1, minimum size=7mm, font=\Large,},column sep=-\pgflinewidth},
+}
+
+
+\renewcommand*\contentsname{Contents}
