@@ -1,9 +1,9 @@
 ---
 template: assignment.tex
-subjectcode: TDT1234
-subjectname: Introduction to \LaTeX
-assignment: 0
-title: Lorem ipsum dolor
+subjectcode: ABC4132
+subjectname: \LaTeX Templates
+assignment: 1
+title: Lorem Ipsum Dolor
 ---
 
 # Equations
@@ -14,6 +14,8 @@ Sed porta purus eu risus blandit vestibulum. Pellentesque blandit sed velit ac p
 * [Table Section](#tables)
 * [Figure Section](#figures)
 * [Code Listing Section](#code-listings)
+
+* [Donec dui elit](#donec-dui-elit)
 
 Aenean diam ante, malesuada vel condimentum vitae, laoreet ac risus. Duis ac nulla laoreet, bibendum lorem at, vulputate purus. Sed egestas, purus eget blandit malesuada, ipsum dui accumsan massa, eu aliquet turpis purus.
 
@@ -89,7 +91,16 @@ Mauris porta felis tincidunt, semper sapien eu, volutpat eros. Vestibulum facili
 Mauris porta felis tincidunt, semper sapien eu, volutpat eros. Vestibulum facilisis libero eu lacus volutpat bibendum sed imperdiet ligula. Cras blandit, nibh ac pulvinar suscipit, nunc neque commodo magna, luctus vehicula lacus arcu ut dui. Quisque sed nisl nec purus vehicula elementum [@fig:md].
 
 
-![Nunc neque commodo magna, luctus vehicula lacus arcu ut dui.](./assets/fig1.jpeg){#fig:md width=50%}
+![Nunc neque commodo magna, luctus vehicula lacus arcu ut dui.](assets/fig1.jpeg){#fig:md width=50%}
+
+Donec cursus scelerisque nisl, vel tempus erat posuere vitae. Nunc vestibulum lacus posuere pretium ultrices. Morbi pharetra libero erat, a malesuada lectus mollis et. Suspendisse efficitur, mauris sit amet sollicitudin vehicula, sem libero sagittis nisi, vel tincidunt diam lacus ac nibh. Morbi maximus, magna non egestas rutrum, libero mauris scelerisque nunc, in elementum libero tortor [@fig:subfigures], [@fig:subfigure1] and [@fig:subfigure2].
+
+:::{#fig:subfigures}
+![In eu lacus nisi.](assets/fig1.jpeg){#fig:subfigure1 height=4cm}\  
+![Scelerisque nisl.](assets/fig2.jpeg){#fig:subfigure2 height=4cm}
+
+Vestibulum tempus porta velit. In eu lacus nisi. Donec cursus scelerisque nisl, vel tempus erat posuere vitae. Nunc vestibulum lacus posuere pretium ultrices. Morbi pharetra libero erat, a malesuada lectus mollis et.
+:::
 
 ### Aenean finibus turpis purus.
 Vitae sollicitudin metus sodales vitae. Vestibulum tempus porta velit. In eu lacus nisi. Donec cursus scelerisque nisl, vel tempus erat posuere vitae. Nunc vestibulum lacus posuere pretium ultrices. Morbi pharetra libero erat, a malesuada lectus mollis et. Suspendisse efficitur, mauris sit amet sollicitudin vehicula, sem libero sagittis nisi, vel tincidunt diam lacus ac nibh. Morbi maximus, magna non egestas rutrum, libero mauris scelerisque nunc, in elementum libero tortor sit amet libero. Morbi id facilisis neque, non pellentesque nisl [@fig:latex]. 
@@ -139,20 +150,27 @@ Semper sapien eu, volutpat eros. Vestibulum facilisis libero eu lacus volutpat b
 
 
 #### Finibus dictum lacus
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed egestas facilisis mauris vel vestibulum. Mauris purus augue, bibendum vel felis quis, finibus rhoncus quam. Nulla sed ipsum nisl. Morbi tristique ac quam eu consectetur. Nulla nisl enim, rutrum non justo in, egestas porttitor felis. Cras ut vulputate orci. Mauris nisl urna, blandit eu pellentesque in, aliquam eu diam. Suspendisse in diam quis orci commodo vulputate. Etiam neque nibh, efficitur vitae lacus vel, auctor sollicitudin ante [@lst:md].
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed egestas facilisis mauris vel vestibulum. Mauris purus augue, bibendum vel felis quis, finibus rhoncus quam. Nulla sed ipsum nisl. Morbi tristique ac quam eu consectetur. Nulla nisl enim, rutrum non justo in, egestas porttitor felis `inline code`. 
+
+```sh
+python3 is_prime.py -h
+```
+
+
+Cras ut vulputate orci. Mauris nisl urna, blandit eu pellentesque in, aliquam eu diam. Suspendisse in diam quis orci commodo vulputate. Etiam neque nibh, efficitur vitae lacus vel, auctor sollicitudin ante [@lst:md].
 
 
 ```python
-Greedy-Balance:
-    Start with no jobs assigned
-    Ti=0 
-    Ai={} for all machines Mi 
-    For j=1,...,n
-        Let Mi be a machine that achieves the minimum Tk 
-        Assign job j to machine Mi
-        Set Ai += {j}
-        Set Ti += tj
-    EndFor
+# prime numbers are greater than 1
+if num > 1:
+   # check for factors
+   for i in range(2, num):
+       if (num % i) == 0:
+           print(num, "is not a prime number")
+           print(i, "times", num // i, "is", num)
+           break
+   else:
+       print(num, "is a prime number")
 ```
 : In eu lacus nisi. Donec cursus scelerisque nisl, vel tempus erat posuere vitae.
 {#lst:md}
@@ -163,17 +181,17 @@ Maecenas lacinia pharetra quam, in imperdiet enim cursus quis. Suspendisse nec t
 Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Cras et ornare nulla. Vestibulum scelerisque tellus eu risus tempor, eu sagittis nibh condimentum. Aenean molestie turpis feugiat cursus placerat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent fermentum nisl ut est ornare, et convallis eros cursus. Integer et orci ultrices, molestie enim ac, molestie nunc. Integer tortor erat, bibendum sit amet turpis pharetra, faucibus molestie augue [@lst:latex].
 
 \begin{codelisting}
-    \caption{In eu lacus nisi. Donec cursus scelerisque nisl, vel tempus erat posuere vitae.}
-    \begin{lstlisting}[language=python, label=lst:latex]
-    Greedy-Balance:
-        Start with no jobs assigned
-        Ti=0 
-        Ai={} for all machines Mi 
-        For j=1,...,n
-            Let Mi be a machine that achieves the minimum Tk 
-            Assign job j to machine Mi
-            Set Ai += {j}
-            Set Ti += tj
-        EndFor
-    \end{lstlisting}
+\caption{In eu lacus nisi. Donec cursus scelerisque nisl, vel tempus erat posuere vitae.}
+\begin{lstlisting}[language=python, label=lst:latex]
+# prime numbers are greater than 1
+if num > 1:
+   # check for factors
+   for i in range(2, num):
+       if (num % i) == 0:
+           print(num, "is not a prime number")
+           print(i, "times", num // i, "is", num)
+           break
+   else:
+       print(num, "is a prime number")
+\end{lstlisting}
 \end{codelisting}

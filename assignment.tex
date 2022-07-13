@@ -39,8 +39,6 @@ $for(header-includes)$$header-includes$$endfor$ % required for pandoc-crossref t
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 % inline code
 \newcommand{\passthrough}[1]{#1}
-\lstset{defaultdialect=[5.3]Lua}
-\lstset{defaultdialect=[x86masm]Assembler}
 % Scale images if necessary, so that they will not overflow the page
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
@@ -69,19 +67,20 @@ $for(header-includes)$$header-includes$$endfor$ % required for pandoc-crossref t
 \pagestyle{fancy}
 \fancyhf{} % clear default header/footer
 % Code Highlighting
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codeorange}{RGB}{150, 90, 10}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codegreen}{RGB}{0, 130, 0}
+\definecolor{codebrown}{RGB}{92, 59, 1}
+\definecolor{codeorange}{RGB}{219, 118, 9}
+\definecolor{codegray}{rgb}{0.5, 0.5, 0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{codebackcolor}{rgb}{0.95,0.95,0.92}
-\lstdefinestyle{mystyle}{
-    basicstyle=\ttfamily,
-    backgroundcolor=\color{codebackcolor},
+\definecolor{codebackcolortan}{rgb}{0.95,0.95,0.92}
+\definecolor{codebackcolorgray}{rgb}{0.90,0.90,0.90}
+\lstset{basicstyle=\ttfamily,
+    backgroundcolor=\color{codebackcolortan},
     commentstyle=\color{codegray},
-    keywordstyle=\color{codeorange},
+    keywordstyle=\color{codebrown},
     stringstyle=\color{codegreen},
     numberstyle=\ttfamily\small\color{codegray},
-    % numbers=left, % line numbers
+    numbers=none, % line numbers
     breakatwhitespace=false,
     breaklines=true,
     keepspaces=true,
@@ -89,8 +88,14 @@ $for(header-includes)$$header-includes$$endfor$ % required for pandoc-crossref t
     showstringspaces=false,
     showtabs=false,
     tabsize=2,
+    aboveskip=0pt,
+    belowskip=0pt,
 }
-\lstset{style=mystyle}
+\lstdefinelanguage{sh}{
+    backgroundcolor=\color{codebackcolorgray},
+    aboveskip=1em,
+    belowskip=1em,
+}
 % default link colors
 \hypersetup{
     colorlinks=true,
@@ -99,14 +104,8 @@ $for(header-includes)$$header-includes$$endfor$ % required for pandoc-crossref t
     citecolor={Blue},
     urlcolor={Blue},
 }
-
-\renewenvironment*{quote}
-{
-    \color{Gray}
-    \begin{leftbar}
-}{
-    \end{leftbar}
-}
+% make quote match its markdown equivalent
+\renewenvironment*{quote}{\color{Gray}\begin{leftbar}}{\end{leftbar}}
 
 % Setup to automatically number tasks based on markdown header level
 \setlength{\cftsecnumwidth}{13mm}
@@ -139,24 +138,28 @@ $for(header-includes)$$header-includes$$endfor$ % required for pandoc-crossref t
 \renewcommand*\lstlistingname{Listing}
 \renewcommand*\figureautorefname{Figure}
 \renewcommand*\tableautorefname{Table}
-% \renewcommand*\lstlistingautorefname{Listing}
 
 
 % Layout and Content -----------------------------------------------------------
 % Front Page
 \title{
-    {\normalsize $subjectcode$ $subjectname$\\
-    \vspace{10mm}
-    Assignment $assignment$}\\
-    \textbf{$title$}
+    $if(assignment)${\color{Gray}\large Assignment $assignment$\\\vspace{-2mm}}$endif$
+    $if(title)$\textbf{$title$}\\\vspace{-2mm}$endif$
+    {\color{Gray}\normalsize $if(subjectcode)$$subjectcode$$endif$ $if(subjectname)$$subjectname$$endif$}
 }
-\author{Sivert Utne}
-\date{\today}
+\author{
+$if(author)$
+    $for(author)$$author$$sep$ \\ $endfor$
+$else$
+    Sivert Utne
+$endif$
+}
+\date{$if(date)$$date$$else$\today$endif$}
 
 % Header and Footer
-\lhead{$subjectcode$\\$subjectname$}
-\rhead{Assignment $assignment$\\$title$}
-\chead{Sivert Utne}
+\lhead{\color{Gray}$if(subjectcode)$$subjectcode$\\$endif$$if(subjectname)$$subjectname$$endif$}
+\rhead{\color{Gray}$if(assignment)$Assignment $assignment$\\$endif$$if(title)$$title$$endif$}
+\chead{$if(author)$$else$Sivert Utne$endif$}
 \fancyfoot[c]{Page \thepage\ of \pageref{LastPage}}
 
 

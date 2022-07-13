@@ -14,6 +14,17 @@ which i would recommend doing automatically by placing this in a `Makefile` or s
 
 An alternative would be placing the template in a *pandoc data dir*.
 
+### Assignment
+
+All optional yaml arguments, and their expected type:
+
+* `subjectcode`: String | Number
+* `subjectname`: String
+* `author`: String | List of Strings
+* `assignment`: Number
+* `title`: String
+* `date`: String
+
 ## pandoc-crossref
 This makes it super easy to refer to figure, tables etc. from anywhere else in the document.
 
