@@ -1,0 +1,231 @@
+\documentclass[]{$documentclass$}
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+\PassOptionsToPackage{space}{xeCJK}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{calc}
+\usepackage{etoolbox}
+\usepackage[normalem]{ulem}
+\usepackage{graphicx}
+\usepackage{calc}
+\usepackage[bidi=default]{babel}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{hyperref}
+% Extra
+\usepackage{tikz}
+\usepackage{enumitem} % editing list
+\usepackage{ifthen} % change language
+\usetikzlibrary{positioning}
+
+% Document Setup ---------------------------------------------------------------
+$for(header-includes)$$header-includes$$endfor$ 
+\geometry{
+    a4paper,
+    left=24mm,
+    right=24mm,
+    bottom=12mm,
+    top=12mm,
+}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\hypersetup{
+    colorlinks=true,
+    linkcolor={Black},
+    filecolor={Blue},
+    citecolor={Blue},
+    urlcolor={Blue},
+}
+% Circular profile picture
+\pgfkeys{
+    /mypicture/.is family, /mypicture,
+    default/.style = {
+        size=16mm,
+        zoom=0cm,
+        offsetUp=0mm, 
+        offsetRight=0mm,
+        padding=0mm,
+    },
+    size/.estore in = \ppicSize,
+    zoom/.estore in = \ppicZoom,
+    offsetUp/.estore in = \ppicOffsetUp,
+    offsetRight/.estore in = \ppicOffsetRight,
+    padding/.estore in = \ppicPadding
+}
+\newcommand{\profilepicture}[2][]
+{
+    \pgfkeys{/mypicture, default, #1}
+    \vspace{\ppicPadding}
+    \begin{tikzpicture}
+        \clip (0,-\ppicSize) circle (\ppicSize);
+        \node[yshift=-\ppicSize] at (\ppicOffsetRight, \ppicOffsetUp) 
+            {\includegraphics[height=\ppicZoom+\ppicSize+\ppicSize]{#2}}; 
+    \end{tikzpicture}
+    \vspace{\ppicPadding}
+}
+% horizontal line across page
+\newcommand\Hline{\par\noindent\rule{\textwidth}{0.4pt}\par}
+% center without adding spacing 
+\newenvironment{tightcenter}
+{\setlength\topsep{0pt}\begin{center}}
+{\end{center}}
+% custom section titles
+\newcommand\mytitle[1]{\vspace{5mm}\textbf{\Large #1}\par\vspace{5pt}}
+
+\newdimen\itemspacing
+\itemspacing=1em
+
+\setlist[itemize]{itemsep=-5pt, leftmargin=4mm, topsep=0pt}
+
+
+\def\titleeducation{Education}
+\def\titleexperience{Work Experience}
+\def\titleprojects{Projects}
+\def\titlecourses{Courses}
+\def\titlecertificates{Certificates}
+\def\aboutphone{phone}
+\def\aboutemail{email}
+\def\aboutlanguage{language}
+\def\aboutlocation{location}
+\def\groupproject{Group Project}
+$if(lang)$
+\ifthenelse{\equal{$lang$}{Norsk}}
+{
+    \def\titleeducation{Utdanning}
+    \def\titleexperience{Arbeidserfaring}
+    \def\titleprojects{Prosjekter}
+    \def\titlecourses{Kurs}
+    \def\titlecertificates{Sertifikater}
+    \def\aboutphone{telefon}
+    \def\aboutemail{epost}
+    \def\aboutlanguage{språk}
+    \def\aboutlocation{bosted}
+    \def\groupproject{Gruppeprosjekt}
+}{}
+$endif$
+
+
+
+
+\begin{document}{\fontfamily{cmss}\selectfont\thispagestyle{empty}
+    % Header
+    \begin{tightcenter}
+        {\Huge\textbf{$name$}}
+        \par\vspace{3mm}
+        {\large $current-title$}
+    \end{tightcenter}
+
+    % Section About me
+    \Hline
+    \begin{minipage}{.49\textwidth}
+        \begin{itemize}[leftmargin=.45\textwidth, itemsep=-1pt]
+            \item[\aboutphone:] $phone$
+            \item[\aboutemail:] \href{mailto:$email$}{$email$}
+            $if(github-username)$
+            \item[GitHub:] \href{https://github.com/$github-username$}{github.com/$github-username$}
+            $endif$
+            $if(linkedin-name)$
+            \item[LinkedIn:] \href{https://www.linkedin.com/in/$linkedin-name$}{linkedin.com/in/$linkedin-name$}
+            $endif$
+            $if(location)$
+            \item[\aboutlocation:] \href{https://www.google.com/maps/search/$location$}{$location$}
+            $endif$
+            $if(languages)$
+            \item[\aboutlanguage:] $for(languages)$$languages$$sep$, $endfor$
+            $endif$
+        \end{itemize}
+    \end{minipage}\hfill
+    \begin{minipage}{.49\textwidth}
+        $if(photo)$
+        \begin{tightcenter}
+        \profilepicture[size=16mm,zoom=2mm,offsetUp=1mm,offsetRight=0mm,padding=3mm]{$photo$}
+        \end{tightcenter}
+        $endif$
+    \end{minipage}
+    $if(ability)$
+    \vspace{2mm}
+    \begin{center}
+        $for(ability)$$ability$$sep$ \(\mid\) $endfor$
+    \end{center}
+    $endif$
+    $body$ % Markdown file contents
+
+    \Hline
+    
+    % Main Content
+    \mytitle{\titleexperience}
+    
+    $for(experience)$
+        \textbf{$experience.title$}\hfill $experience.start$ - $experience.end$\\
+        \textit{$experience.company$, $experience.location$}
+        $if(experience.subtitle)$\\$experience.subtitle$.$endif$
+        \begin{itemize}
+        $for(experience.description)$
+            \item $experience.description$.
+        $endfor$
+        \end{itemize}
+        \par\vspace{\itemspacing}
+    $endfor$
+    \par\vspace{-\itemspacing}
+
+    \mytitle{\titleeducation}
+    $for(education)$
+        \textbf{$education.title$} \hfill $education.start$ - $education.end$\\
+        \textit{$education.school$, $education.location$}\\
+        $education.description$.
+        $if(education.accomplishment)$
+        \textit{$for(education.accomplishment)$$education.accomplishment$$sep$. $endfor$}
+        $endif$
+        \par\vspace{\itemspacing}
+    $endfor$
+    \par\vspace{-\itemspacing}
+
+    $if(project)$
+    \mytitle{\titleprojects}
+    \begin{tabular}{@{\hspace{0pt}}lllll}
+        $for(project)$
+            $if(project.link)$
+                \href{$project.link$}{$project.description$} &
+            $else$
+                $project.description$ & 
+            $endif$
+            \texttt{$project.tech$} & 
+            $project.year$ & 
+            $if(project.group)$\textit{\groupproject}$endif$ &
+            \textit{$project.detail$}\\
+        $endfor$
+    \end{tabular}
+    $endif$
+
+    \begin{minipage}[t]{.49\textwidth}
+        $if(courses)$
+        \mytitle{\titlecourses}
+        \begin{itemize}
+        $for(courses)$
+            \item $courses$
+        $endfor$
+        \end{itemize}
+        $endif$
+    \end{minipage}\hfill
+    \begin{minipage}[t]{.49\textwidth}
+        $if(certificates)$
+        \mytitle{\titlecertificates}
+        \begin{itemize}
+        $for(certificates)$
+            \item $certificates$
+        $endfor$
+        \end{itemize}
+        $endif$
+    \end{minipage}
+
+}\end{document}

@@ -53,6 +53,17 @@ key:
 | `supertitle`    | String                |    Report     |
 | `title`         | String                |               |
 
+#### CV / Resumé
+
+Please use the [demo CV](demo/cv.md) or [demo resumé](demo/resume.md) to see how this template should be used.
+
+Language can be changed by using:
+```yaml
+lang: Norsk
+```
+> Default will be english, `Norsk` is the only valid replacement.
+
+
 ## pandoc-crossref
 This makes it super easy to refer to figure, tables etc. from anywhere else in the document.
 
