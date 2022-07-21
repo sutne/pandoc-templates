@@ -93,12 +93,13 @@
     belowskip=1em,
 }
 % default link colors
+\definecolor{mylinks}{RGB}{40,100,255}
 \hypersetup{
     colorlinks=true,
     linkcolor={Black},
-    filecolor={Blue},
-    citecolor={Blue},
-    urlcolor={Blue},
+    filecolor={mylinks},
+    citecolor={mylinks},
+    urlcolor ={mylinks},
 }
 % make quote match its markdown equivalent
 \renewenvironment*{quote}{\color{Gray}\begin{leftbar}}{\end{leftbar}}
