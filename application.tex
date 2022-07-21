@@ -1,0 +1,91 @@
+\documentclass[]{$documentclass$}
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+\PassOptionsToPackage{space}{xeCJK}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{calc}
+\usepackage{etoolbox}
+\usepackage[normalem]{ulem}
+\usepackage{graphicx}
+\usepackage{calc}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{hyperref}
+% Extra
+\usepackage{tikz}
+\usepackage{enumitem} % editing list
+\usepackage{ifthen} % change language
+\usetikzlibrary{positioning}
+
+% Document Setup ---------------------------------------------------------------
+$for(header-includes)$$header-includes$$endfor$ 
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\newcommand{\passthrough}[1]{#1}
+\geometry{
+    a4paper,
+    left=24mm,
+    right=24mm,
+    bottom=12mm,
+    top=12mm,
+}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+\definecolor{mylinks}{RGB}{40,100,255}
+\hypersetup{
+    colorlinks=true,
+    linkcolor={mylinks},
+    filecolor={mylinks},
+    citecolor={mylinks},
+    urlcolor ={mylinks},
+}
+
+
+
+\ifthenelse{\equal{$lang$}{Norsk}}
+{
+    \usepackage[norsk]{babel}
+    \def\thetitle{Søknad om stilling som}
+    \def\sign{Med vennlig hilsen}
+}{
+    \usepackage[bidi=default]{babel}
+    \def\thetitle{Application for position as}
+    \def\sign{Sincerely}
+}
+
+
+
+
+\begin{document}{\fontfamily{cmss}\selectfont\thispagestyle{empty}
+    $name$\\
+    $location.address$\\
+    $location.postal-code$ $location.postal-name$\\
+    $email$\\
+
+    $company.name$\\
+    $company.location.address$\\
+    $company.location.postal-code$ $company.location.postal-name$\\
+
+    
+    \hfill $location.city$, \today
+
+    \vspace{1em}
+    {\Large\textbf{\thetitle\ $position$.}}
+
+    $body$
+
+    \vspace{2em}
+    \sign,
+    
+    $name$
+
+}\end{document}
