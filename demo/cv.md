@@ -6,8 +6,8 @@ name: John Smith
 current-title: Template Filler
 photo: assets/profile-picture
 phone: 123 456 789
-location: Norway
-email: sivertutne@gmail.com
+location: New York
+email: john@smith.mail
 github-username: sutne
 linkedin-name: sivert-utne 
 languages:

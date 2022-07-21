@@ -17,7 +17,6 @@
 \usepackage[normalem]{ulem}
 \usepackage{graphicx}
 \usepackage{calc}
-\usepackage[bidi=default]{babel}
 \usepackage{bm}
 \usepackage{fancyhdr}
 \usepackage{float}
@@ -28,8 +27,38 @@
 \usepackage{ifthen} % change language
 \usetikzlibrary{positioning}
 
+% Document Strings ---------------------------------------------------------------
+\ifthenelse{\equal{$lang$}{Norsk}}
+{
+    \usepackage[norsk]{babel}
+    \def\aboutphone{telefon}
+    \def\aboutemail{epost}
+    \def\aboutlanguage{språk}
+    \def\aboutlocation{bosted}
+    \def\titleeducation{Utdanning}
+    \def\titleexperience{Arbeidserfaring}
+    \def\titleprojects{Prosjekter}
+    \def\groupproject{Gruppeprosjekt}
+    \def\titlecourses{Kurs}
+    \def\titlecertificates{Sertifikater}
+}{
+    \usepackage[bidi=default]{babel}
+    \def\aboutphone{phone}
+    \def\aboutemail{email}
+    \def\aboutlanguage{language}
+    \def\aboutlocation{location}
+    \def\titleeducation{Education}
+    \def\titleexperience{Work Experience}
+    \def\titleprojects{Projects}
+    \def\groupproject{Group Project}
+    \def\titlecourses{Courses}
+    \def\titlecertificates{Certificates}
+}
+
 % Document Setup ---------------------------------------------------------------
 $for(header-includes)$$header-includes$$endfor$ 
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\newcommand{\passthrough}[1]{#1}
 \geometry{
     a4paper,
     left=24mm,
@@ -39,12 +68,13 @@ $for(header-includes)$$header-includes$$endfor$
 }
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
+\definecolor{mylinks}{RGB}{40,100,255}
 \hypersetup{
     colorlinks=true,
-    linkcolor={Black},
-    filecolor={Blue},
-    citecolor={Blue},
-    urlcolor={Blue},
+    linkcolor={mylinks},
+    filecolor={mylinks},
+    citecolor={mylinks},
+    urlcolor ={mylinks},
 }
 % Circular profile picture
 \pgfkeys{
@@ -88,31 +118,7 @@ $for(header-includes)$$header-includes$$endfor$
 \setlist[itemize]{itemsep=-5pt, leftmargin=4mm, topsep=0pt}
 
 
-\def\titleeducation{Education}
-\def\titleexperience{Work Experience}
-\def\titleprojects{Projects}
-\def\titlecourses{Courses}
-\def\titlecertificates{Certificates}
-\def\aboutphone{phone}
-\def\aboutemail{email}
-\def\aboutlanguage{language}
-\def\aboutlocation{location}
-\def\groupproject{Group Project}
-$if(lang)$
-\ifthenelse{\equal{$lang$}{Norsk}}
-{
-    \def\titleeducation{Utdanning}
-    \def\titleexperience{Arbeidserfaring}
-    \def\titleprojects{Prosjekter}
-    \def\titlecourses{Kurs}
-    \def\titlecertificates{Sertifikater}
-    \def\aboutphone{telefon}
-    \def\aboutemail{epost}
-    \def\aboutlanguage{språk}
-    \def\aboutlocation{bosted}
-    \def\groupproject{Gruppeprosjekt}
-}{}
-$endif$
+
 
 
 
