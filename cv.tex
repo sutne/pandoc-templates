@@ -27,7 +27,65 @@
 \usepackage{ifthen} % change language
 \usetikzlibrary{positioning}
 
-% Document Strings ---------------------------------------------------------------
+% Document Setup ---------------------------------------------------------------
+$for(header-includes)$$header-includes$$endfor$ 
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\newcommand{\passthrough}[1]{#1}
+\geometry{
+    a4paper,
+    left=24mm,
+    right=24mm,
+    bottom=12mm,
+    top=12mm,
+}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\definecolor{mylinks}{RGB}{40,100,255}
+\hypersetup{
+    colorlinks=true,
+    linkcolor={mylinks},
+    filecolor={mylinks},
+    citecolor={mylinks},
+    urlcolor ={mylinks},
+}
+% Circular profile picture
+\pgfkeys{
+    /mypicture/.is family, /mypicture,
+    default/.style = {size=16mm,zoom=0cm,offsetUp=0mm, offsetRight=0mm,padding=0mm,},
+    size/.estore in = \ppicSize,
+    zoom/.estore in = \ppicZoom,
+    offsetUp/.estore in = \ppicOffsetUp,
+    offsetRight/.estore in = \ppicOffsetRight,
+    padding/.estore in = \ppicPadding
+}
+\newcommand{\profilepicture}[2][]
+{
+    \pgfkeys{/mypicture, default, #1}
+    \vspace{\ppicPadding}
+    \begin{tikzpicture}
+        \clip (0,-\ppicSize) circle (\ppicSize);
+        \node[yshift=-\ppicSize] at (\ppicOffsetRight, \ppicOffsetUp) {\includegraphics[height=\ppicZoom+\ppicSize+\ppicSize]{#2}}; 
+    \end{tikzpicture}
+    \vspace{\ppicPadding}
+}
+% horizontal line across page
+\newcommand\Hline{\par\noindent\rule{\textwidth}{0.4pt}\par}
+% center without adding spacing 
+\newenvironment{tightcenter}
+{\setlength\topsep{0pt}\begin{center}}
+{\end{center}}
+% custom section titles
+\newcommand\mytitle[1]{\vspace{5mm}\textbf{\Large #1}\par\vspace{5pt}}
+% set spacing beteen items (education/experience instances)
+\newdimen\itemspacing
+\itemspacing=1em
+% Default, remove spacing and decrease left margin
+\setlist[itemize]{itemsep=-5pt, leftmargin=4mm, topsep=0pt}
+
+
+
+
+
 \ifthenelse{\equal{$lang$}{Norsk}}
 {
     \usepackage[norsk]{babel}
@@ -54,74 +112,6 @@
     \def\titlecourses{Courses}
     \def\titlecertificates{Certificates}
 }
-
-% Document Setup ---------------------------------------------------------------
-$for(header-includes)$$header-includes$$endfor$ 
-\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\newcommand{\passthrough}[1]{#1}
-\geometry{
-    a4paper,
-    left=24mm,
-    right=24mm,
-    bottom=12mm,
-    top=12mm,
-}
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{0pt}
-\definecolor{mylinks}{RGB}{40,100,255}
-\hypersetup{
-    colorlinks=true,
-    linkcolor={mylinks},
-    filecolor={mylinks},
-    citecolor={mylinks},
-    urlcolor ={mylinks},
-}
-% Circular profile picture
-\pgfkeys{
-    /mypicture/.is family, /mypicture,
-    default/.style = {
-        size=16mm,
-        zoom=0cm,
-        offsetUp=0mm, 
-        offsetRight=0mm,
-        padding=0mm,
-    },
-    size/.estore in = \ppicSize,
-    zoom/.estore in = \ppicZoom,
-    offsetUp/.estore in = \ppicOffsetUp,
-    offsetRight/.estore in = \ppicOffsetRight,
-    padding/.estore in = \ppicPadding
-}
-\newcommand{\profilepicture}[2][]
-{
-    \pgfkeys{/mypicture, default, #1}
-    \vspace{\ppicPadding}
-    \begin{tikzpicture}
-        \clip (0,-\ppicSize) circle (\ppicSize);
-        \node[yshift=-\ppicSize] at (\ppicOffsetRight, \ppicOffsetUp) 
-            {\includegraphics[height=\ppicZoom+\ppicSize+\ppicSize]{#2}}; 
-    \end{tikzpicture}
-    \vspace{\ppicPadding}
-}
-% horizontal line across page
-\newcommand\Hline{\par\noindent\rule{\textwidth}{0.4pt}\par}
-% center without adding spacing 
-\newenvironment{tightcenter}
-{\setlength\topsep{0pt}\begin{center}}
-{\end{center}}
-% custom section titles
-\newcommand\mytitle[1]{\vspace{5mm}\textbf{\Large #1}\par\vspace{5pt}}
-
-\newdimen\itemspacing
-\itemspacing=1em
-
-\setlist[itemize]{itemsep=-5pt, leftmargin=4mm, topsep=0pt}
-
-
-
-
-
-
 
 \begin{document}{\fontfamily{cmss}\selectfont\thispagestyle{empty}
     % Header
@@ -164,6 +154,7 @@ $for(header-includes)$$header-includes$$endfor$
         $for(ability)$$ability$$sep$ \(\mid\) $endfor$
     \end{center}
     $endif$
+
     $body$ % Markdown file contents
 
     \Hline

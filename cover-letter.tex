@@ -17,7 +17,6 @@
 \usepackage[normalem]{ulem}
 \usepackage{graphicx}
 \usepackage{calc}
-\usepackage[bidi=default]{babel}
 \usepackage{bm}
 \usepackage{fancyhdr}
 \usepackage{float}
@@ -50,6 +49,10 @@ $for(header-includes)$$header-includes$$endfor$
     urlcolor ={mylinks},
 }
 
+
+
+
+
 \ifthenelse{\equal{$lang$}{Norsk}}
 {
     \usepackage[norsk]{babel}
@@ -61,9 +64,6 @@ $for(header-includes)$$header-includes$$endfor$
     \def\sign{Sincerely}
 }
 
-
-
-
 \begin{document}{\fontfamily{cmss}\selectfont\thispagestyle{empty}
     $name$\\
     $location.address$\\
@@ -73,11 +73,16 @@ $for(header-includes)$$header-includes$$endfor$
     $company.name$\\
     $company.location.address$\\
     $company.location.postal-code$ $company.location.postal-name$\\
+    $if(contact-person)$$contact-person$\\$endif$
 
-    \hfill $location.city$ \today
+    \hfill $location.city$, \today
+
+    \vspace{1em}
+    {\Large\textbf{\thetitle\ $position$.}}
 
     $body$
 
+    \vspace{2em}
     \sign,
     
     $name$

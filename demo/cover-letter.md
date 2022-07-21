@@ -3,28 +3,25 @@ template: cover-letter.tex
 lang: English
 
 name: John Smith
-email: sivertutne@gmail.com
+email: john@smith.mail
 location: 
-  country: Norway
-  city: Trondheim
-  postal-code: 7050
-  postal-name: Trondheim
-  address: Herman Krags Veg 38 - Leilighet 51
+  country: Country
+  city: City
+  postal-code: 1234
+  postal-name: Postname
+  address: My Address 312
 
 position: position
-contact-person: Jhonny Reader
+contact-person: Contact Person
 company:
   name: Company Name
   location: 
-    country: Norway
-    city: Trondheim
-    postal-code: 7050
-    postal-name: Trondheim
-    address: Herman Krags Veg 38 - Leilighet 51
+    country: Country
+    city: City
+    postal-code: 1234
+    postal-name: Postname
+    address: The Company Address 42
 ---
-
-Dear Ms. Reader,
-
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
 
 Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan.

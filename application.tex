@@ -51,6 +51,8 @@ $for(header-includes)$$header-includes$$endfor$
 
 
 
+
+
 \ifthenelse{\equal{$lang$}{Norsk}}
 {
     \usepackage[norsk]{babel}
@@ -62,9 +64,6 @@ $for(header-includes)$$header-includes$$endfor$
     \def\sign{Sincerely}
 }
 
-
-
-
 \begin{document}{\fontfamily{cmss}\selectfont\thispagestyle{empty}
     $name$\\
     $location.address$\\
@@ -74,8 +73,8 @@ $for(header-includes)$$header-includes$$endfor$
     $company.name$\\
     $company.location.address$\\
     $company.location.postal-code$ $company.location.postal-name$\\
+    $if(contact-person)$$contact-person$\\$endif$
 
-    
     \hfill $location.city$, \today
 
     \vspace{1em}
