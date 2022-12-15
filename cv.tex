@@ -33,10 +33,10 @@ $for(header-includes)$$header-includes$$endfor$
 \newcommand{\passthrough}[1]{#1}
 \geometry{
     a4paper,
-    left=24mm,
-    right=24mm,
-    bottom=12mm,
-    top=12mm,
+    left=16mm,
+    right=16mm,
+    bottom=8mm,
+    top=8mm,
 }
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
@@ -163,15 +163,34 @@ $for(header-includes)$$header-includes$$endfor$
     \mytitle{\titleexperience}
     
     $for(experience)$
-        \textbf{$experience.title$}\hfill $experience.start$ - $experience.end$\\
-        \textit{$experience.company$, $experience.location$}
-        $if(experience.subtitle)$\\$experience.subtitle$.$endif$
-        \begin{itemize}
-        $for(experience.description)$
-            \item $experience.description$.
-        $endfor$
-        \end{itemize}
-        \par\vspace{\itemspacing}
+        $if(experience.subpositions)$
+            \textbf{$experience.title$}\\
+            \textit{$experience.company$, $experience.location$}\\
+            $for(experience.subpositions)$
+                $experience.subpositions.description$ \hfill $experience.subpositions.start$ - $experience.subpositions.end$\\
+            $endfor$
+            $if(experience.description)$
+            \par\vspace{-\itemspacing}
+            \begin{itemize}
+            $for(experience.description)$
+                \item $experience.description$.
+            $endfor$
+            \end{itemize}
+            $endif$
+            \par\vspace{\itemspacing}
+        $else$
+            \textbf{$experience.title$}\hfill $experience.start$ - $experience.end$\\
+            \textit{$experience.company$, $experience.location$}
+            $if(experience.subtitle)$\\$experience.subtitle$.$endif$
+            $if(experience.description)$
+            \begin{itemize}
+            $for(experience.description)$
+                \item $experience.description$.
+            $endfor$
+            \end{itemize}
+            $endif$
+            \par\vspace{\itemspacing}
+        $endif$
     $endfor$
     \par\vspace{-\itemspacing}
 
@@ -198,8 +217,8 @@ $for(header-includes)$$header-includes$$endfor$
             $endif$
             \texttt{$project.tech$} & 
             $project.year$ & 
-            $if(project.group)$\textit{\groupproject}$endif$ &
-            \textit{$project.detail$}\\
+            \textit{$project.detail$} &
+            $if(project.group)$\textit{\groupproject}$endif$ \\
         $endfor$
     \end{tabular}
     $endif$

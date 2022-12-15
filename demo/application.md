@@ -4,6 +4,7 @@ lang: English
 
 name: John Smith
 email: john@smith.mail
+phone: +1 234 567 890
 location: 
   country: Country
   city: City
