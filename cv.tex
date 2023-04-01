@@ -103,7 +103,7 @@ $for(header-includes)$$header-includes$$endfor$
     \usepackage[bidi=default]{babel}
     \def\aboutphone{phone}
     \def\aboutemail{email}
-    \def\aboutlanguage{language}
+    \def\aboutlanguage{languages}
     \def\aboutlocation{location}
     \def\titleeducation{Education}
     \def\titleexperience{Work Experience}
@@ -129,6 +129,9 @@ $for(header-includes)$$header-includes$$endfor$
             \item[\aboutemail:] \href{mailto:$email$}{$email$}
             $if(github-username)$
             \item[GitHub:] \href{https://github.com/$github-username$}{github.com/$github-username$}
+            $endif$
+            $if(website)$
+            \item[Website:] \href{https://$website$}{$website$}
             $endif$
             $if(linkedin-name)$
             \item[LinkedIn:] \href{https://www.linkedin.com/in/$linkedin-name$}{linkedin.com/in/$linkedin-name$}

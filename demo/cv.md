@@ -7,6 +7,7 @@ current-title: Template Filler
 photo: assets/profile-picture
 phone: 123 456 789
 location: New York
+website: google.com
 email: john@smith.mail
 github-username: sutne
 linkedin-name: sivert-utne 
